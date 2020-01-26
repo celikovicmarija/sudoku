@@ -5,10 +5,6 @@ import sudokuModule from '@/api/sudoku.js';
 
 Vue.use(Vuex);
 
-/*
-difficulty: easy,medium,hard,very-hard,insane,inhuman
-*/
-
 export default new Vuex.Store({
   state: {
     difficulties: ["easy", "medium", "hard", "very-hard", "insane", "inhuman"],
@@ -30,7 +26,7 @@ export default new Vuex.Store({
       let solution = sudokuModule.sudoku.solve(state.origString);
       let solvedGrid = sudokuModule.sudoku.board_string_to_grid(solution);
 
-      // change . to "", also store a ob instead of just numbers
+     
       for(let i=0;i<state.grid.length;i++) {
         for(let x=0;x<state.grid[i].length;x++) {
 
@@ -54,7 +50,7 @@ export default new Vuex.Store({
       if(!state.selected) return;
       let row = state.grid[state.selected.x];
       row[state.selected.y].value = x;
-      // highlight incorrect answers
+   
       if(x !== state.grid[state.selected.x][state.selected.y].solution) {
         row[state.selected.y].error = true;
       } else {
@@ -62,9 +58,7 @@ export default new Vuex.Store({
       }
       console.log(state.grid[state.selected.x][state.selected.y].solution);
       Vue.set(state.grid, state.selected.x, row);
-      /*
-      did we win? this feels like it should be it's own method
-      */
+      
       let won = true;
       for(let i=0;i<state.grid.length;i++) {
         for(let x=0;x<state.grid[i].length;x++) {
